@@ -1,156 +1,432 @@
-<!DOCTYPE html>
-<html lang="tr">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ege Pediatric Infectious Diseases</title>
+import React from "react";
+import { motion } from "framer-motion";
+import {
+  CalendarDays,
+  MapPin,
+  Mail,
+  Phone,
+  Users,
+  Building2,
+  Clock,
+  Image as ImageIcon,
+  Award,
+  ChevronRight,
+  ExternalLink,
+} from "lucide-react";
 
-<style>
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  scroll-behavior: smooth;
-}
-
-header {
-  position: fixed;
-  width: 100%;
-  top: 0;
-  left: 0;
-  background: transparent;
-  padding: 20px 40px;
-  transition: 0.3s ease;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  z-index: 1000;
-}
-
-header.scrolled {
-  background: #0B1F3A;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-  padding: 12px 40px;
-}
-
-header a {
-  color: white;
-  text-decoration: none;
-  margin-left: 20px;
-  font-weight: bold;
-}
-
-.hero {
-  height: 100vh;
-  background: linear-gradient(rgba(11,31,58,0.7), rgba(11,31,58,0.7)),
-              url('https://images.unsplash.com/photo-1581093458791-9d3c42f9d82b');
-  background-size: cover;
-  background-position: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  text-align: center;
-  padding: 0 20px;
-}
-
-.section {
-  padding: 100px 40px;
-  max-width: 1000px;
-  margin: auto;
-}
-
-h1 {
-  font-size: 48px;
-  margin-bottom: 20px;
-}
-
-h2 {
-  color: #0B1F3A;
-}
-
-.fade {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: 0.6s ease;
-}
-
-.fade.show {
-  opacity: 1;
-  transform: translateY(0);
-}
-</style>
-</head>
-
-<body>
-
-<header id="header">
-  <div><strong>EGE PID</strong></div>
-  <nav>
-    <a href="#about">About</a>
-    <a href="#research">Research</a>
-    <a href="#education">Education</a>
-    <a href="#contact">Contact</a>
-  </nav>
-</header>
-
-<div class="hero">
-  <div>
-    <h1>Pediatric Infectious Diseases</h1>
-    <p>Research • Education • Clinical Excellence</p>
-  </div>
-</div>
-
-<section id="about" class="section fade">
-  <h2>About Us</h2>
-  <p>Ege Üniversitesi Çocuk Enfeksiyon Hastalıkları Bilim Dalı...</p>
-</section>
-
-<section id="research" class="section fade">
-  <h2>Research</h2>
-  <p>Antimicrobial resistance, pediatric sepsis, vaccine research...</p>
-</section>
-
-<section id="education" class="section fade">
-  <h2>Education & Fellowship</h2>
-  <p>Uluslararası standartlarda klinik ve araştırma eğitimi...</p>
-</section>
-
-<section id="contact" class="section fade">
-  <h2>Contact</h2>
-  <p>Bornova, İzmir</p>
-</section>
-
-<script>
-window.addEventListener("scroll", function() {
-  const header = document.getElementById("header");
-  if (window.scrollY > 50) {
-    header.classList.add("scrolled");
-  } else {
-    header.classList.remove("scrolled");
-  }
-});
-
-const faders = document.querySelectorAll(".fade");
-
-const appearOptions = {
-  threshold: 0.3
+const eventInfo = {
+  title: "6. Kemik İliği Transplantasyonu Workshop’ı",
+  subtitle: "Güncel yaklaşımlar, multidisipliner deneyim paylaşımı ve klinik uygulamalar",
+  date: "Tarih eklenecek",
+  venue: "Ege Üniversitesi / İzmir",
+  city: "İzmir, Türkiye",
+  email: "info@workshop.org",
+  phone: "+90 XXX XXX XX XX",
 };
 
-const appearOnScroll = new IntersectionObserver(function(entries, observer) {
-  entries.forEach(entry => {
-    if (!entry.isIntersecting) {
-      return;
-    } else {
-      entry.target.classList.add("show");
-      observer.unobserve(entry.target);
-    }
-  });
-}, appearOptions);
+const speakers = [
+  {
+    name: "Prof. Dr. Ad Soyad",
+    title: "Çocuk Hematoloji ve Onkoloji",
+    institution: "Üniversite / Hastane adı",
+    initials: "AS",
+    bio: "Kemik iliği transplantasyonu, immün yetmezlikler ve transplant sonrası komplikasyonlar alanlarında klinik ve akademik çalışmaları bulunmaktadır.",
+  },
+  {
+    name: "Prof. Dr. Ad Soyad",
+    title: "Erişkin Hematoloji",
+    institution: "Üniversite / Hastane adı",
+    initials: "AS",
+    bio: "Allojenik kök hücre nakli, graft-versus-host hastalığı ve transplantasyon enfeksiyonları üzerine çalışmaktadır.",
+  },
+  {
+    name: "Doç. Dr. Ad Soyad",
+    title: "Çocuk Enfeksiyon Hastalıkları",
+    institution: "Üniversite / Hastane adı",
+    initials: "AS",
+    bio: "İmmünkompromize hastalarda enfeksiyon yönetimi, antifungal tedavi ve transplant enfeksiyonları alanlarında deneyim sahibidir.",
+  },
+  {
+    name: "Uzm. Dr. Ad Soyad",
+    title: "Transplantasyon Ünitesi",
+    institution: "Üniversite / Hastane adı",
+    initials: "AS",
+    bio: "Transplantasyon süreci, hasta izlemi ve multidisipliner bakım protokolleri üzerine klinik uygulamalarda görev almaktadır.",
+  },
+];
 
-faders.forEach(fader => {
-  appearOnScroll.observe(fader);
-});
-</script>
+const boardMembers = [
+  "Prof. Dr. Ad Soyad",
+  "Prof. Dr. Ad Soyad",
+  "Doç. Dr. Ad Soyad",
+  "Dr. Öğr. Üyesi Ad Soyad",
+  "Uzm. Dr. Ad Soyad",
+];
 
-</body>
-</html>
+const program = [
+  {
+    time: "09:00 - 09:30",
+    title: "Kayıt ve Açılış",
+    speaker: "Düzenleme Kurulu",
+  },
+  {
+    time: "09:30 - 10:15",
+    title: "Kemik İliği Transplantasyonunda Güncel Yaklaşım",
+    speaker: "Prof. Dr. Ad Soyad",
+  },
+  {
+    time: "10:15 - 11:00",
+    title: "Transplant Öncesi Hasta Değerlendirmesi",
+    speaker: "Prof. Dr. Ad Soyad",
+  },
+  {
+    time: "11:00 - 11:20",
+    title: "Kahve Arası",
+    speaker: "",
+  },
+  {
+    time: "11:20 - 12:15",
+    title: "Transplantasyon Enfeksiyonları: Olgu Temelli Yaklaşım",
+    speaker: "Doç. Dr. Ad Soyad",
+  },
+  {
+    time: "12:15 - 13:15",
+    title: "Öğle Arası",
+    speaker: "",
+  },
+  {
+    time: "13:15 - 14:30",
+    title: "Multidisipliner Panel: Zor Olgular",
+    speaker: "Panelistler",
+  },
+  {
+    time: "14:30 - 15:15",
+    title: "Transplant Sonrası İzlem ve Komplikasyon Yönetimi",
+    speaker: "Uzm. Dr. Ad Soyad",
+  },
+  {
+    time: "15:15 - 15:30",
+    title: "Kapanış ve Değerlendirme",
+    speaker: "Workshop Başkanlığı",
+  },
+];
+
+const sponsors = [
+  "Ana Sponsor",
+  "Bilimsel Destekçi",
+  "Kurumsal Sponsor",
+  "Katkı Sağlayan Kuruluş",
+];
+
+const gallery = [
+  "Önceki Workshop Açılış Oturumu",
+  "Panel Tartışması",
+  "Olgu Temelli Oturum",
+  "Katılımcı Alanı",
+  "Bilimsel Program",
+  "Kapanış ve Sertifika",
+];
+
+function SectionHeader({ eyebrow, title, description }) {
+  return (
+    <div className="mx-auto mb-10 max-w-3xl text-center">
+      <p className="mb-3 text-sm font-semibold uppercase tracking-[0.28em] text-cyan-700">{eyebrow}</p>
+      <h2 className="text-3xl font-bold tracking-tight text-slate-950 md:text-4xl">{title}</h2>
+      {description && <p className="mt-4 text-base leading-7 text-slate-600">{description}</p>}
+    </div>
+  );
+}
+
+function InitialAvatar({ initials, large = false }) {
+  return (
+    <div
+      className={`flex shrink-0 items-center justify-center rounded-3xl bg-gradient-to-br from-cyan-100 via-sky-100 to-slate-100 font-bold text-cyan-800 ring-1 ring-cyan-100 ${
+        large ? "h-40 w-40 text-4xl" : "h-20 w-20 text-xl"
+      }`}
+    >
+      {initials}
+    </div>
+  );
+}
+
+export default function WorkshopWebsite() {
+  return (
+    <main className="min-h-screen bg-slate-50 text-slate-900">
+      <header className="sticky top-0 z-50 border-b border-white/20 bg-white/85 backdrop-blur-xl">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 md:px-8">
+          <a href="#home" className="flex items-center gap-3">
+            <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-cyan-700 text-white shadow-lg shadow-cyan-900/20">
+              <Building2 className="h-6 w-6" />
+            </div>
+            <div>
+              <p className="text-sm font-bold leading-tight text-slate-950">KİT Workshop</p>
+              <p className="text-xs text-slate-500">6. Ulusal Workshop</p>
+            </div>
+          </a>
+
+          <nav className="hidden items-center gap-6 text-sm font-medium text-slate-700 lg:flex">
+            <a href="#about" className="hover:text-cyan-700">Hakkında</a>
+            <a href="#speakers" className="hover:text-cyan-700">Konuşmacılar</a>
+            <a href="#committee" className="hover:text-cyan-700">Kurul</a>
+            <a href="#program" className="hover:text-cyan-700">Program</a>
+            <a href="#transport" className="hover:text-cyan-700">Ulaşım</a>
+            <a href="#sponsors" className="hover:text-cyan-700">Sponsorlar</a>
+            <a href="#gallery" className="hover:text-cyan-700">Galeri</a>
+          </nav>
+
+          <a
+            href="#contact"
+            className="hidden rounded-full bg-cyan-700 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-cyan-900/20 transition hover:bg-cyan-800 md:inline-flex"
+          >
+            İletişim
+          </a>
+        </div>
+      </header>
+
+      <section id="home" className="relative overflow-hidden bg-slate-950">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(14,165,233,0.38),transparent_36%),radial-gradient(circle_at_bottom_right,rgba(34,211,238,0.2),transparent_28%)]" />
+        <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-4 py-20 md:px-8 lg:grid-cols-[1.05fr_0.95fr] lg:py-28">
+          <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm font-medium text-cyan-50 backdrop-blur">
+              <CalendarDays className="h-4 w-4" />
+              {eventInfo.date} · {eventInfo.city}
+            </div>
+            <h1 className="max-w-4xl text-4xl font-bold tracking-tight text-white md:text-6xl">
+              {eventInfo.title}
+            </h1>
+            <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-300 md:text-xl">{eventInfo.subtitle}</p>
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <a
+                href="#program"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-bold text-slate-950 transition hover:bg-cyan-50"
+              >
+                Programı İncele <ChevronRight className="h-4 w-4" />
+              </a>
+              <a
+                href="#speakers"
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-white/20 px-6 py-3 text-sm font-bold text-white transition hover:bg-white/10"
+              >
+                Konuşmacılar
+              </a>
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, scale: 0.96 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.7, delay: 0.1 }}
+            className="rounded-[2rem] border border-white/10 bg-white/10 p-4 shadow-2xl backdrop-blur"
+          >
+            <div className="rounded-[1.5rem] bg-white p-6">
+              <p className="text-sm font-semibold uppercase tracking-[0.25em] text-cyan-700">Workshop Özeti</p>
+              <div className="mt-6 grid gap-4">
+                <div className="rounded-3xl bg-slate-50 p-5">
+                  <p className="text-3xl font-bold text-slate-950">1 Gün</p>
+                  <p className="mt-1 text-sm text-slate-600">Yoğun bilimsel program</p>
+                </div>
+                <div className="rounded-3xl bg-slate-50 p-5">
+                  <p className="text-3xl font-bold text-slate-950">Olgu Temelli</p>
+                  <p className="mt-1 text-sm text-slate-600">Panel, tartışma ve klinik deneyim paylaşımı</p>
+                </div>
+                <div className="rounded-3xl bg-cyan-700 p-5 text-white">
+                  <p className="text-3xl font-bold">Multidisipliner</p>
+                  <p className="mt-1 text-sm text-cyan-50">Hematoloji, enfeksiyon, immünoloji ve transplantasyon ekipleri</p>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      <section id="about" className="px-4 py-20 md:px-8">
+        <div className="mx-auto max-w-7xl">
+          <SectionHeader
+            eyebrow="Workshop Hakkında"
+            title="Kemik iliği transplantasyonunda güncel klinik yaklaşım"
+            description="Bu workshop, kemik iliği transplantasyonu sürecinde güncel bilimsel verilerin, pratik klinik deneyimlerin ve multidisipliner hasta yönetiminin paylaşılmasını amaçlar."
+          />
+          <div className="grid gap-6 md:grid-cols-3">
+            {[
+              [Users, "Hedef Kitle", "Hematoloji, çocuk sağlığı, enfeksiyon hastalıkları, immünoloji, transplantasyon hemşireliği ve ilgili alanlardan sağlık profesyonelleri."],
+              [Award, "Bilimsel İçerik", "Transplant öncesi değerlendirme, donör seçimi, enfeksiyon yönetimi, komplikasyonlar ve olgu temelli tartışmalar."],
+              [Clock, "Format", "Kısa sunumlar, panel oturumları, tartışmalı olgular ve katılımcı etkileşimine açık bilimsel oturumlar."],
+            ].map(([Icon, title, text]) => (
+              <div key={title} className="rounded-3xl bg-white p-7 shadow-sm ring-1 ring-slate-200">
+                <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-cyan-50 text-cyan-700">
+                  <Icon className="h-6 w-6" />
+                </div>
+                <h3 className="text-xl font-bold text-slate-950">{title}</h3>
+                <p className="mt-3 leading-7 text-slate-600">{text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="speakers" className="bg-white px-4 py-20 md:px-8">
+        <div className="mx-auto max-w-7xl">
+          <SectionHeader
+            eyebrow="Konuşmacılar"
+            title="Bilimsel program konuşmacıları"
+            description="Konuşmacı fotoğrafları ve kısa biyografiler bu alanda yer alacaktır. Gerçek fotoğraflar eklendiğinde kartlar doğrudan güncellenebilir."
+          />
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+            {speakers.map((speaker) => (
+              <article key={speaker.name + speaker.title} className="rounded-3xl bg-slate-50 p-6 ring-1 ring-slate-200 transition hover:-translate-y-1 hover:shadow-lg">
+                <InitialAvatar initials={speaker.initials} />
+                <h3 className="mt-5 text-lg font-bold text-slate-950">{speaker.name}</h3>
+                <p className="mt-1 text-sm font-semibold text-cyan-700">{speaker.title}</p>
+                <p className="mt-1 text-sm text-slate-500">{speaker.institution}</p>
+                <p className="mt-4 text-sm leading-6 text-slate-600">{speaker.bio}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="committee" className="px-4 py-20 md:px-8">
+        <div className="mx-auto max-w-7xl">
+          <SectionHeader
+            eyebrow="Düzenleme Kurulu"
+            title="Workshop başkanlığı ve düzenleme kurulu"
+            description="Başkan bilgisi, kurul üyeleri ve organizasyon komitesi kurumsal bir görünümle sunulur."
+          />
+          <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
+            <div className="rounded-[2rem] bg-white p-8 text-center shadow-sm ring-1 ring-slate-200">
+              <div className="mx-auto flex justify-center">
+                <InitialAvatar initials="BK" large />
+              </div>
+              <p className="mt-6 text-sm font-semibold uppercase tracking-[0.24em] text-cyan-700">Workshop Başkanı</p>
+              <h3 className="mt-2 text-2xl font-bold text-slate-950">Prof. Dr. Başkan Adı Soyadı</h3>
+              <p className="mt-3 text-slate-600">Kurum / Anabilim Dalı bilgisi</p>
+            </div>
+            <div className="rounded-[2rem] bg-slate-950 p-8 text-white">
+              <h3 className="text-2xl font-bold">Düzenleme Kurulu</h3>
+              <div className="mt-6 grid gap-3 sm:grid-cols-2">
+                {boardMembers.map((member) => (
+                  <div key={member} className="rounded-2xl border border-white/10 bg-white/10 px-4 py-3 text-sm font-medium">
+                    {member}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="program" className="bg-white px-4 py-20 md:px-8">
+        <div className="mx-auto max-w-7xl">
+          <SectionHeader
+            eyebrow="Bilimsel Program"
+            title="Workshop programı"
+            description="Program akışı saat, oturum başlığı ve konuşmacı bilgileriyle düzenlenmiştir."
+          />
+          <div className="overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-sm">
+            {program.map((item, index) => (
+              <div key={item.time + item.title} className={`grid gap-4 p-6 md:grid-cols-[160px_1fr_220px] ${index !== program.length - 1 ? "border-b border-slate-200" : ""}`}>
+                <div className="flex items-center gap-2 text-sm font-bold text-cyan-700">
+                  <Clock className="h-4 w-4" /> {item.time}
+                </div>
+                <div>
+                  <p className="font-bold text-slate-950">{item.title}</p>
+                </div>
+                <p className="text-sm text-slate-600">{item.speaker || "—"}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="transport" className="px-4 py-20 md:px-8">
+        <div className="mx-auto max-w-7xl">
+          <SectionHeader
+            eyebrow="Ulaşım ve İletişim"
+            title="Katılım bilgileri"
+            description="Etkinlik yeri, ulaşım önerileri ve iletişim bilgileri bu bölümde yer alır."
+          />
+          <div className="grid gap-6 lg:grid-cols-3">
+            <div className="rounded-3xl bg-white p-7 shadow-sm ring-1 ring-slate-200 lg:col-span-2">
+              <h3 className="flex items-center gap-2 text-xl font-bold text-slate-950">
+                <MapPin className="h-5 w-5 text-cyan-700" /> Etkinlik Yeri
+              </h3>
+              <p className="mt-4 leading-7 text-slate-600">
+                {eventInfo.venue}. Salon adı, bina ve kampüs içi yönlendirme bilgileri buraya eklenebilir.
+              </p>
+              <div className="mt-6 flex h-72 items-center justify-center rounded-3xl bg-slate-100 text-center text-slate-500 ring-1 ring-slate-200">
+                <div>
+                  <MapPin className="mx-auto mb-3 h-10 w-10" />
+                  Harita alanı / Google Maps bağlantısı
+                </div>
+              </div>
+            </div>
+            <div id="contact" className="rounded-3xl bg-cyan-700 p-7 text-white shadow-lg shadow-cyan-900/20">
+              <h3 className="text-xl font-bold">İletişim</h3>
+              <div className="mt-6 space-y-4 text-sm">
+                <p className="flex items-center gap-3"><Mail className="h-5 w-5" /> {eventInfo.email}</p>
+                <p className="flex items-center gap-3"><Phone className="h-5 w-5" /> {eventInfo.phone}</p>
+                <p className="flex items-start gap-3"><MapPin className="mt-0.5 h-5 w-5" /> {eventInfo.city}</p>
+              </div>
+              <a href="mailto:info@workshop.org" className="mt-8 inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-bold text-cyan-800">
+                E-posta Gönder <ExternalLink className="h-4 w-4" />
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="sponsors" className="bg-white px-4 py-20 md:px-8">
+        <div className="mx-auto max-w-7xl">
+          <SectionHeader
+            eyebrow="Sponsorlar"
+            title="Destekleyen kuruluşlar"
+            description="Sponsor logoları, destek kategorilerine göre bu alanda gösterilebilir."
+          />
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {sponsors.map((sponsor) => (
+              <div key={sponsor} className="flex h-32 items-center justify-center rounded-3xl border border-dashed border-slate-300 bg-slate-50 px-6 text-center font-semibold text-slate-500">
+                {sponsor} Logosu
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="gallery" className="px-4 py-20 md:px-8">
+        <div className="mx-auto max-w-7xl">
+          <SectionHeader
+            eyebrow="Fotoğraf Galerisi"
+            title="Önceki kongre ve workshop fotoğrafları"
+            description="Geçmiş etkinliklerden seçilen fotoğraflar kurumsal hafızayı ve etkinlik atmosferini yansıtır."
+          />
+          <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+            {gallery.map((caption, index) => (
+              <div key={caption} className="group overflow-hidden rounded-3xl bg-white shadow-sm ring-1 ring-slate-200">
+                <div className="flex h-56 items-center justify-center bg-gradient-to-br from-slate-100 to-cyan-50 text-slate-400">
+                  <ImageIcon className="h-12 w-12" />
+                </div>
+                <div className="p-5">
+                  <p className="text-sm font-semibold text-cyan-700">Fotoğraf {index + 1}</p>
+                  <h3 className="mt-1 font-bold text-slate-950">{caption}</h3>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <footer className="bg-slate-950 px-4 py-10 text-white md:px-8">
+        <div className="mx-auto flex max-w-7xl flex-col gap-4 md:flex-row md:items-center md:justify-between">
+          <div>
+            <p className="font-bold">{eventInfo.title}</p>
+            <p className="mt-1 text-sm text-slate-400">© 2026 Tüm hakları saklıdır.</p>
+          </div>
+          <div className="flex flex-wrap gap-4 text-sm text-slate-300">
+            <a href="#about" className="hover:text-white">Hakkında</a>
+            <a href="#program" className="hover:text-white">Program</a>
+            <a href="#contact" className="hover:text-white">İletişim</a>
+          </div>
+        </div>
+      </footer>
+    </main>
+  );
+}
